@@ -2,6 +2,13 @@
 
 function workon() {  
   venv_name=$1
+  
+  if [ -z "$venv_name" ] 
+  then
+    echo "Venv's name should not be empty"
+    return 
+  fi
+
   source $VENVS_DIR/$venv_name/bin/activate
 }
 
@@ -9,6 +16,12 @@ function mkvenv() {
   venv_name=$1
   venv_dir=$2
   python_v=$3
+
+  if [ -z "$venv_name" ] 
+  then
+    echo "Venv's name should not be empty"
+    return
+  fi
 
   if [ -z "$venv_dir" ] 
   then
@@ -30,7 +43,7 @@ function rmvenv() {
   if [ -z "$venv_name" ] 
   then
     echo "No venv name given"
-    exit
+    return
   fi
   
   if [ -z "$venv_dir" ] 
