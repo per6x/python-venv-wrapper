@@ -23,6 +23,24 @@ function mkvenv() {
   $python_v -m venv $venv_dir/$venv_name
 }
 
+function rmvenv() {
+  venv_name=$1
+  venv_dir=$2
+
+  if [ -z "$venv_name" ] 
+  then
+    echo "No venv name given"
+    exit
+  fi
+  
+  if [ -z "$venv_dir" ] 
+  then
+    venv_dir=$VENVS_DIR
+  fi
+
+  rm -rf $venv_dir/$venv_name
+}
+
 function list_venvs() {
   venv_dir=$1
 
