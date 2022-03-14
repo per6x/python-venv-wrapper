@@ -13,10 +13,20 @@ function workon() {
 }
 
 function mkvenv() {
-  venv_name=$1
-  venv_dir=$2
-  python_v=$3
+  venv_name=""
+  venv_dir=""
+  python_path=""
 
+  while getopts ':n:l:p:' flag;
+  do
+    case $flag in
+        n) venv_name=$OPTARG;;
+        l) venv_dir=$OPTARG;;
+        p) python_path=$OPTARG;;
+    esac
+  done
+  
+  echo $venv_name
   if [ -z "$venv_name" ] 
   then
     echo "Venv's name should not be empty"
@@ -28,12 +38,12 @@ function mkvenv() {
     venv_dir=$VENVS_DIR
   fi
 
-  if [ -z "$python_v" ] 
+  if [ -z "$python_path" ] 
   then
-    python_v="/usr/bin/python3"
+    python_path="/usr/bin/python3"
   fi
    
-  $python_v -m venv $venv_dir/$venv_name
+  $python_path -m venv $venv_dir/$venv_name
 }
 
 function rmvenv() {
