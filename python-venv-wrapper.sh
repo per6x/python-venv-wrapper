@@ -26,7 +26,6 @@ function mkvenv() {
     esac
   done
   
-  echo $venv_name
   if [ -z "$venv_name" ] 
   then
     echo "Venv's name should not be empty"
@@ -47,8 +46,17 @@ function mkvenv() {
 }
 
 function rmvenv() {
-  venv_name=$1
-  venv_dir=$2
+  venv_name=""
+  venv_dir=""
+
+  while getopts ':n:l:' flag;
+  do
+    case $flag in
+        n) venv_name=$OPTARG;;
+        l) venv_dir=$OPTARG;;
+    esac
+  done
+  
 
   if [ -z "$venv_name" ] 
   then
@@ -65,7 +73,14 @@ function rmvenv() {
 }
 
 function list_venvs() {
-  venv_dir=$1
+  venv_dir=""
+
+  while getopts ':l:' flag;
+  do
+    case $flag in
+        l) venv_dir=$OPTARG;;
+    esac
+  done
 
   if [ -z "$venv_dir" ] 
   then
